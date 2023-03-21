@@ -18,6 +18,13 @@ Exemples:
 
 >>> mcd(924, 780)
 12
+
+>>> mcmN(42, 60, 70, 63)
+1260
+
+>>> mcdN(820, 630, 1050, 1470)
+10
+
 """
 
 def esPrimo(numero):
@@ -82,7 +89,34 @@ def mcd(numero1, numero2):
         mcd *= factor**min(dic1[factor],dic2[factor])
     return mcd
 
+def fact2dicN(*numeros):
+    factores_all = set()
+    for numero in numeros:
+        factores_num = set(descompon(numero))
+        factores_all |= factores_num
+    dic = [{factor : 0 for factor in factores_all} for _ in numeros]
+    for i, numero in enumerate(numeros):
+        for factor in descompon(numero):
+            dic[i][factor] += 1
+    return dic
 
+def mcmN(*numeros):
+    dic = fact2dicN(*numeros)
+    mcm = 1
+    max = 0
+    for factor in dic[0]:
+        for i, _ in enumerate(numeros):
+            if dic[i][factor] > max: max= dic[i][factor]
+        mcm *= factor**max
+        max = 0
+    return mcm
+
+def mcdN(*numeros):
+    dic = fact2dicN(*numeros)
+    mcd = 1
+    for factor in dic[0]:
+        mcd *= factor**min([dic_[factor] for dic_ in dic])
+    return mcd
 
 
 import doctest
