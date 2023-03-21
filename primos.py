@@ -15,6 +15,9 @@ Exemples:
 
 >>> mcm(90, 14)
 630
+
+>>> mcd(924, 780)
+12
 """
 
 def esPrimo(numero):
@@ -22,8 +25,8 @@ def esPrimo(numero):
     Devuelve True si su argumento es primo, y False si no lo es.
     """
     
-    for prova in range(2, int(numero**0.5 + 1)):
-        if numero % prova == 0: return False
+    for num_div in range(2, int(numero**0.5 + 1)):
+        if numero % num_div == 0: return False
     else: return True
 
 def primos(numero):
@@ -31,7 +34,7 @@ def primos(numero):
     Devuelve una tupla con todos los números primos menores que su argumento.
     """
 
-    return tuple([prova for prova in range(2,numero) if esPrimo(prova)])
+    return tuple([num_div for num_div in range(2,numero) if esPrimo(num_div)])
 
 def descompon(numero):
     """
@@ -68,6 +71,18 @@ def mcm(numero1, numero2):
     for factor in dic1:
         mcm *= factor**max(dic1[factor],dic2[factor])
     return mcm
+
+def mcd(numero1, numero2):
+    """
+    Devuelve el máximo común divisor de sus argumentos.
+    """
+    dic1, dic2 = fact2dic(numero1,numero2)
+    mcd = 1
+    for factor in dic1:
+        mcd *= factor**min(dic1[factor],dic2[factor])
+    return mcd
+
+
 
 
 import doctest
